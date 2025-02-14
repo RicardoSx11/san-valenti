@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>San Valentín</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffebeb;
+            font-family: 'Dancing Script', cursive;
+            text-align: center;
+        }
+        h1 {
+            font-size: 50px;
+            font-style: italic;
+            color: red;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        .sobre {
+            width: 900px;
+            height: 505px;
+            background: url('1.png') no-repeat center center/cover;
+            cursor: pointer;
+            transition: transform 0.5s ease-in-out;
+        }
+        .sobre:hover {
+            transform: scale(1.1);
+        }
+        .carta {
+            width: 600spx;
+            height: 400px;
+            background: url('2.png') no-repeat center center/cover;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease-in-out, opacity 0.5s;
+            opacity: 0;
+            padding: 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: white;
+            border-radius: 10px;
+        }
+        .mostrar {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        .imagenes {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            opacity: 1;
+            animation: girar 5s linear infinite;
+        }
+        @keyframes girar {
+            0% { transform: rotate(0deg) translate(200px) rotate(0deg); }
+            100% { transform: rotate(360deg) translate(200px) rotate(-360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>¿Quieres ser mi San Valentín?</h1>
+    <div class="sobre" onclick="abrirCarta()"></div>
+    <div class="carta" id="carta">
+        <p>Yumi Tkm Skibidi,</p>
+        <p>Kieres Ser mi Skibidi San Valentin?</p>
+        <p>Te amo ❤️ </p>
+    </div>
+    <script>
+        function abrirCarta() {
+            document.querySelector(".sobre").style.display = "none";
+            document.getElementById("carta").classList.add("mostrar");
+            agregarImagenes();
+        }
+
+        function agregarImagenes() {
+            const imagenes = [
+                "images.jpeg",
+                "emoji.jpg",
+                "stitch.jpg",
+                "yumi.png"
+            ];
+            
+            imagenes.forEach((src, index) => {
+                let img = document.createElement("img");
+                img.src = src;
+                img.className = "imagenes";
+                img.style.animationDelay = `${index * 0.5}s`;
+                document.body.appendChild(img);
+            });
+        }
+    </script>
+</body>
+</html>
