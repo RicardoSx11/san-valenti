@@ -1,105 +1,296 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>San Valentín</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #ffebeb;
-            font-family: 'Dancing Script', cursive;
-            text-align: center;
-        }
-        h1 {
-            font-size: 50px;
-            font-style: italic;
-            color: red;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
-        }
-        .sobre {
-            width: 900px;
-            height: 505px;
-            background: url('1.png') no-repeat center center/cover;
-            cursor: pointer;
-            transition: transform 0.5s ease-in-out;
-        }
-        .sobre:hover {
-            transform: scale(1.1);
-        }
-        .carta {
-            width: 600spx;
-            height: 400px;
-            background: url('2.png') no-repeat center center/cover;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            transition: transform 0.5s ease-in-out, opacity 0.5s;
-            opacity: 0;
-            padding: 40px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background-color: white;
-            border-radius: 10px;
-        }
-        .mostrar {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-        }
-        .imagenes {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            opacity: 1;
-            animation: girar 5s linear infinite;
-        }
-        @keyframes girar {
-            0% { transform: rotate(0deg) translate(200px) rotate(0deg); }
-            100% { transform: rotate(360deg) translate(200px) rotate(-360deg); }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carta para Mamá</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background: radial-gradient(circle, #ffccd5, #ffa6b7);
+    }
+
+    /* Cinta animada */
+    .cinta {
+      position: absolute;
+      top: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 2em;
+      color: #ff69b4;
+      opacity: 0;
+      animation: mostrarCinta 2s ease-out 1 forwards;
+    }
+
+    @keyframes mostrarCinta {
+      0% { opacity: 0; transform: scaleY(0); }
+      100% { opacity: 1; transform: scaleY(1); }
+    }
+
+    /* Corazones en el fondo flotando */
+    .corazon-fondo {
+      position: fixed;
+      font-size: 60px;
+      color: rgba(255, 0, 0, 0.2);
+      animation:
+        flotar 8s ease-in-out infinite,
+        cambiarColor 10s ease-in-out infinite;
+      user-select: none;
+      pointer-events: none;
+      opacity: 0.3;
+      transition: transform 0.3s;
+    }
+
+    @keyframes flotar {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes cambiarColor {
+      0%   { color: rgba(255, 0, 0, 0.2); }
+      25%  { color: rgba(255, 105, 180, 0.25); }
+      50%  { color: rgba(255, 20, 147, 0.3); }
+      75%  { color: rgba(255, 69, 0, 0.25); }
+      100% { color: rgba(255, 0, 0, 0.2); }
+    }
+
+    /* Pergamino */
+    .pergamino {
+      background: #f5deb3;
+      border: 10px solid #d2b48c;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      width: 0;
+      height: auto;
+      max-width: 90%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: abrir 2s ease-out forwards;
+      padding: 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    @keyframes abrir {
+      0% { width: 0; opacity: 0; }
+      100% { width: 80%; opacity: 1; }
+    }
+
+    /* Texto del mensaje */
+    .mensaje {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3em;
+      color: #a52a2a;
+      margin: 10px;
+      text-align: center;
+      line-height: 1.2;
+      opacity: 0;
+      transform: scale(0.8);
+      animation: aparecer 2s ease-out 2s forwards, lanzarEfecto 3s ease-out 2s;
+    }
+
+    @keyframes aparecer {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .mensaje .corazon {
+      color: red;
+    }
+
+    /* Texto en cursiva abajo */
+    .texto-abajo {
+      font-style: italic;
+      font-size: 1.3em;
+      color: #5c4033;
+      margin: 15px;
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 2s ease-out 4s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Efectos de partículas */
+    .efecto {
+      position: absolute;
+      font-size: 24px;
+      animation: expandir 1s ease-out forwards;
+      opacity: 0;
+      z-index: 20;
+    }
+
+    @keyframes expandir {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--x), var(--y)) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    /* Corazoncito escondido (easter egg) */
+    .corazon-oculto {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      font-size: 2em;
+      cursor: pointer;
+      animation: pulse 1s infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    /* Segunda carta animada */
+    .nueva-carta {
+      background: #f5deb3;
+      border: 10px solid #d2b48c;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      width: 0;
+      height: auto;
+      max-width: 90%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: abrir 2s ease-out forwards;
+      padding: 20px;
+      position: relative;
+      z-index: 20;
+      margin-top: 20px;
+    }
+
+    .nueva-carta .mensaje {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2em;
+      color: #a52a2a;
+      margin: 10px;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .nueva-carta .mensaje .corazon {
+      color: red;
+    }
+
+  </style>
 </head>
 <body>
-    <h1>¿Quieres ser mi San Valentín?</h1>
-    <div class="sobre" onclick="abrirCarta()"></div>
-    <div class="carta" id="carta">
-        <p>Yumi Tkm Skibidi,</p>
-        <p>Kieres Ser mi Skibidi San Valentin?</p>
-        <p>Te amo ❤️ </p>
-    </div>
-    <script>
-        function abrirCarta() {
-            document.querySelector(".sobre").style.display = "none";
-            document.getElementById("carta").classList.add("mostrar");
-            agregarImagenes();
-        }
+  <!-- Cinta animada -->
+  <div class="cinta">Feliz Día de las Madres</div>
 
-        function agregarImagenes() {
-            const imagenes = [
-                "images.jpeg",
-                "emoji.jpg",
-                "stitch.jpg",
-                "yumi.png"
-            ];
-            
-            imagenes.forEach((src, index) => {
-                let img = document.createElement("img");
-                img.src = src;
-                img.className = "imagenes";
-                img.style.animationDelay = `${index * 0.5}s`;
-                document.body.appendChild(img);
-            });
-        }
-    </script>
+  <!-- Corazones flotantes en el fondo -->
+  <script>
+    const totalCorazones = 30;
+    for (let i = 0; i < totalCorazones; i++) {
+      const corazon = document.createElement('div');
+      corazon.classList.add('corazon-fondo');
+      corazon.innerText = '❤️';
+
+      const size = 40 + Math.random() * 60; // tamaño entre 40px y 100px
+      corazon.style.fontSize = `${size}px`;
+      corazon.style.top = `${Math.random() * 100}%`;
+      corazon.style.left = `${Math.random() * 100}%`;
+      corazon.style.animationDuration = `${6 + Math.random() * 4}s`;
+      corazon.style.opacity = 0.1 + Math.random() * 0.3;
+
+      document.body.appendChild(corazon);
+    }
+  </script>
+
+  <!-- Pergamino con el mensaje -->
+  <div class="pergamino" id="pergamino">
+    <div class="mensaje" id="mensaje">
+      Feliz Día<br>
+      De las madres
+    </div>
+    <div class="texto-abajo">
+      La quiero mucho, es la mejor Mamá del mundo.
+    </div>
+  </div>
+
+  <!-- Corazoncito escondido para el Easter Egg -->
+  <div class="corazon-oculto" id="easterEgg">❤️</div>
+
+  <script>
+    // Función para lanzar los efectos de estrellas y corazones
+    function lanzarEfectos(x, y) {
+      const emojis = ['⭐', '❤️', '✨', '💖'];
+      for (let i = 0; i < 20; i++) {
+        const span = document.createElement('span');
+        span.classList.add('efecto');
+        span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        document.body.appendChild(span);
+
+        span.style.left = `${x}px`;
+        span.style.top = `${y}px`;
+
+        const angle = Math.random() * 2 * Math.PI;
+        const distance = 80 + Math.random() * 50;
+        const dx = Math.cos(angle) * distance;
+        const dy = Math.sin(angle) * distance;
+        span.style.setProperty('--x', `${dx}px`);
+        span.style.setProperty('--y', `${dy}px`);
+
+        setTimeout(() => span.remove(), 1000);
+      }
+    }
+
+    // Lanzar efectos cuando la página carga
+    window.addEventListener('load', () => {
+      const pergamino = document.getElementById('pergamino');
+      const mensaje = document.getElementById('mensaje');
+      const rect = pergamino.getBoundingClientRect();
+      lanzarEfectos(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+      setInterval(() => {
+        const rect = mensaje.getBoundingClientRect();
+        lanzarEfectos(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      }, 8000);
+    });
+
+    // Easter egg: Mostrar nueva carta con mensaje personal
+    const corazonOculto = document.getElementById('easterEgg');
+    corazonOculto.addEventListener('click', () => {
+      const nuevaCarta = document.createElement('div');
+      nuevaCarta.classList.add('nueva-carta');
+      nuevaCarta.innerHTML = `
+        <div class="mensaje">
+          Mamá, te quiero muchísimo ❤️. Aunque a veces no soy el mejor hijo del mundo, tú siempre has estado ahí para mí. 
+          Eres la mejor mamá de todo el universo y nunca dejaré de agradecerte todo lo que haces por mí. 
+          Me has enseñado tantas cosas valiosas y me has dado tanto amor, que no sé cómo podría expresarlo todo en palabras. 
+          Sin ti, no sé qué haría. Eres mi inspiración y mi apoyo. ¡Te amo con todo mi corazón! 💖
+        </div>
+      `;
+      document.body.appendChild(nuevaCarta);
+    });
+  </script>
 </body>
 </html>
